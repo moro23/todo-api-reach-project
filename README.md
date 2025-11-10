@@ -1,46 +1,44 @@
-# Full-Stack Todo Application (Backend API)
+# Full-Stack Todo Application
 
-This repository contains the back-end API for a full-stack Todo application. The API is built with Python using the Django and Django REST Framework, and it is designed to be consumed by a front-end application (e.g., React).
+This is a full-stack "Todo" application built to demonstrate the separation of concerns between a back-end RESTful API and a front-end single-page application (SPA).
 
-The project currently provides a read-only API for listing and retrieving "Todo" items.
+The back-end is a robust API built with Python, Django, and Django REST Framework. The front-end is a dynamic user interface built with React that consumes the data from the API.
 
 ## Project Structure
 
 -   `/backend`: Contains the Django project that serves the REST API.
--   `/frontend`: (Planned) Will contain the React application that consumes the API.
+-   `/frontend`: Contains the React application that serves as the user interface.
 
-## Backend Features
+## Features
 
--   **Read-Only API for Todos:** Provides endpoints to list all todos and retrieve a single todo by its ID.
--   **Browsable API:** Includes Django REST Framework's user-friendly browsable API for easy interaction and testing in the browser.
--   **CORS Pre-configured:** Comes with `django-cors-headers` set up to allow requests from `http://localhost:3000`, making it ready for a local React front-end.
--   **Admin Integration:** The `Todo` model is registered with the Django admin, allowing for easy content management (CRUD operations) out of the box.
--   **Unit Tests:** Includes basic model tests to ensure data integrity and model logic.
+### Backend
 
-## API Endpoints
+-   **RESTful API:** Provides a clean, browsable API for listing and retrieving "Todo" items.
+-   **CORS Enabled:** Pre-configured with `django-cors-headers` to allow cross-origin requests from the front-end application.
+-   **Admin Panel:** Leverages the built-in Django Admin for easy and secure management of todo items (CRUD operations).
 
-The following endpoints are available:
+### Frontend
 
-| Endpoint      | HTTP Method | Description                  |
-| ------------- | ----------- | ---------------------------- |
-| `/apis/`      | `GET`       | Retrieves a list of all todos. |
-| `/apis/<id>/` | `GET`       | Retrieves a single todo by its ID. |
+-   **Dynamic UI:** A responsive user interface built with React.
+-   **Live Data Fetching:** Uses `axios` to make live HTTP requests to the Django back-end to fetch and display the list of todos.
+-   **Component-Based Architecture:** The UI is structured using modern React class components.
 
 ## Technologies Used
 
--   **Backend:** Python, Django
--   **API Framework:** Django REST Framework
--   **Database:** SQLite (default)
--   **CORS:** `django-cors-headers`
+| Area      | Technology / Library        |
+| --------- | --------------------------- |
+| **Backend** | Python, Django, Django REST Framework, SQLite |
+| **Frontend**| React, JavaScript (ES6+), `axios`, npm |
+| **Tools**   | Git, venv, nvm (recommended)  |
 
-## Backend Setup and Installation
+## Local Development Setup
 
-Follow these instructions to get the backend server running on your local machine.
+Follow these instructions to get both the backend and frontend servers running on your local machine.
 
 ### Prerequisites
 
 -   Python 3.8 or higher
--   pip (Python package installer)
+-   Node.js (LTS version recommended) & npm
 -   Git
 
 ### 1. Clone the Repository
@@ -50,78 +48,66 @@ git clone https://github.com/<your-username>/todo-api-react-project.git
 cd todo-api-react-project
 ```
 
-### 2. Set Up the Backend Environment
-
-Navigate to the backend directory to perform the setup.
+### 2. Set Up the Backend
 
 ```bash
+# Navigate to the backend directory
 cd backend
-```
 
-### 3. Create and Activate a Virtual Environment
-
-**On macOS/Linux:**
-
-```bash
+# Create and activate a Python virtual environment
 python3 -m venv venv
 source venv/bin/activate
-```
 
-**On Windows:**
-
-```bash
-python -m venv venv
-.\venv\Scripts\activate
-```
-
-### 4. Install Dependencies
-
-Install all the required Python packages.
-
-```bash
+# Install Python dependencies
 pip install -r requirements.txt
-```
 
-### 5. Apply Database Migrations
-
-Create the database schema based on the models defined in the code.
-
-```bash
+# Apply database migrations
 python manage.py migrate
 ```
 
-### 6. Create a Superuser
-
-This is required to access the Django admin panel.
+### 3. Set Up the Frontend
 
 ```bash
-python manage.py createsuperuser
+# Navigate to the frontend directory from the root
+cd frontend
+
+# Install JavaScript dependencies
+npm install
 ```
 
-Follow the prompts to create a username and password.
+## Running the Application
 
-### 7. Run the Development Server
+To run the full application, you must start both the backend and frontend servers in **two separate terminals**.
+
+### Terminal 1: Start the Backend Server
 
 ```bash
-python manage.py runserver
+# Navigate to the backend directory
+cd backend
+
+# Activate the virtual environment
+source venv/bin/activate
+
+# Start the Django development server
+python manage.py runserver```
+The backend API will now be running at `http://127.0.0.1:8000/`.
+
+### Terminal 2: Start the Frontend Server
+
+```bash
+# Navigate to the frontend directory
+cd frontend
+
+# Start the React development server
+npm start
 ```
+The React application will open automatically in your browser at `http://localhost:3000/`.
 
-The API server will now be running at `http://127.0.0.1:8000/`.
+You should now see the list of "todos" fetched from your backend API displayed on the page.
 
-## Usage
+## API Endpoints
 
-Once the server is running, you can interact with the application in two ways:
-
-1.  **Browsable API:**
-    -   Navigate to `http://127.0.0.1:8000/apis/` in your browser to view the list of all todos.
-    -   Click on an individual todo to access its detail view (e.g., `http://127.0.0.1:8000/apis/1/`).
-
-2.  **Django Admin Panel:**
-    -   Navigate to `http://127.0.0.1:8000/admin/` and log in with your superuser credentials.
-    -   Here you can add, edit, and delete todos, which will be immediately reflected in the API.
-
-## Next Steps
-
--   [ ] Develop the React front-end to consume this API.
--   [ ] Expand the API to include **Create**, **Update**, and **Delete** functionality (`ListCreateAPIView`, `RetrieveUpdateDestroyAPIView`).
-```
+| Endpoint      | HTTP Method | Description                  |
+| ------------- | ----------- | ---------------------------- |
+| `/apis/`      | `GET`       | Retrieves a list of all todos. |
+| `/apis/<id>/` | `GET`       | Retrieves a single todo by its ID. |```
