@@ -1,70 +1,113 @@
-# Getting Started with Create React App
+# Full-Stack Todo Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a full-stack "Todo" application built to demonstrate the separation of concerns between a back-end RESTful API and a front-end single-page application (SPA).
 
-## Available Scripts
+The back-end is a robust API built with Python, Django, and Django REST Framework. The front-end is a dynamic user interface built with React that consumes the data from the API.
 
-In the project directory, you can run:
+## Project Structure
 
-### `npm start`
+-   `/backend`: Contains the Django project that serves the REST API.
+-   `/frontend`: Contains the React application that serves as the user interface.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
 
-### `npm test`
+-   **RESTful API:** Provides a clean, browsable API for listing and retrieving "Todo" items.
+-   **CORS Enabled:** Pre-configured with `django-cors-headers` to allow cross-origin requests from the front-end application.
+-   **Admin Panel:** Leverages the built-in Django Admin for easy and secure management of todo items (CRUD operations).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frontend
 
-### `npm run build`
+-   **Dynamic UI:** A responsive user interface built with React.
+-   **Live Data Fetching:** Uses `axios` to make live HTTP requests to the Django back-end to fetch and display the list of todos.
+-   **Component-Based Architecture:** The UI is structured using modern React class components.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies Used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Area      | Technology / Library        |
+| --------- | --------------------------- |
+| **Backend** | Python, Django, Django REST Framework, SQLite |
+| **Frontend**| React, JavaScript (ES6+), `axios`, npm |
+| **Tools**   | Git, venv, nvm (recommended)  |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Local Development Setup
 
-### `npm run eject`
+Follow these instructions to get both the backend and frontend servers running on your local machine.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Prerequisites
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-   Python 3.8 or higher
+-   Node.js (LTS version recommended) & npm
+-   Git
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 1. Clone the Repository
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+git clone https://github.com/<your-username>/todo-api-react-project.git
+cd todo-api-react-project
+```
 
-## Learn More
+### 2. Set Up the Backend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+# Navigate to the backend directory
+cd backend
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Create and activate a Python virtual environment
+python3 -m venv venv
+source venv/bin/activate
 
-### Code Splitting
+# Install Python dependencies
+pip install -r requirements.txt
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Apply database migrations
+python manage.py migrate
+```
 
-### Analyzing the Bundle Size
+### 3. Set Up the Frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+# Navigate to the frontend directory from the root
+cd frontend
 
-### Making a Progressive Web App
+# Install JavaScript dependencies
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Running the Application
 
-### Advanced Configuration
+To run the full application, you must start both the backend and frontend servers in **two separate terminals**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Terminal 1: Start the Backend Server
 
-### Deployment
+```bash
+# Navigate to the backend directory
+cd backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+# Activate the virtual environment
+source venv/bin/activate
 
-### `npm run build` fails to minify
+# Start the Django development server
+python manage.py runserver```
+The backend API will now be running at `http://127.0.0.1:8000/`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Terminal 2: Start the Frontend Server
+
+```bash
+# Navigate to the frontend directory
+cd frontend
+
+# Start the React development server
+npm start
+```
+The React application will open automatically in your browser at `http://localhost:3000/`.
+
+You should now see the list of "todos" fetched from your backend API displayed on the page.
+
+## API Endpoints
+
+| Endpoint      | HTTP Method | Description                  |
+| ------------- | ----------- | ---------------------------- |
+| `/apis/`      | `GET`       | Retrieves a list of all todos. |
+| `/apis/<id>/` | `GET`       | Retrieves a single todo by its ID. |```
